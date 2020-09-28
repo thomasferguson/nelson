@@ -1,0 +1,451 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:shacl="http://www.w3.org/ns/shacl#"
+     xmlns:nelson="http://example.org/nelson/">
+    <Ontology/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#construct -->
+
+    <AnnotationProperty rdf:about="http://www.w3.org/ns/shacl#construct"/>
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#order -->
+
+    <AnnotationProperty rdf:about="http://www.w3.org/ns/shacl#order"/>
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#prefixes -->
+
+    <AnnotationProperty rdf:about="http://www.w3.org/ns/shacl#prefixes"/>
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#rule -->
+
+    <AnnotationProperty rdf:about="http://www.w3.org/ns/shacl#rule"/>
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#targetClass -->
+
+    <AnnotationProperty rdf:about="http://www.w3.org/ns/shacl#targetClass"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/nelson/hasNegativeProperty -->
+
+    <ObjectProperty rdf:about="http://example.org/nelson/hasNegativeProperty">
+        <inverseOf rdf:resource="http://example.org/nelson/hasPositiveProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://example.org/nelson/PositiveProperty"/>
+        <rdfs:range rdf:resource="http://example.org/nelson/NegativeProperty"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A property that relates an instance of nlsn:PositiveProperty to its unique, corresponding instance of nlsn:NegativeProperty.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has negative property</rdfs:label>
+    </ObjectProperty>
+    
+
+
+    <!-- http://example.org/nelson/hasNoValueClass -->
+
+    <ObjectProperty rdf:about="http://example.org/nelson/hasNoValueClass">
+        <inverseOf rdf:resource="http://example.org/nelson/noValueClassForProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+        <rdfs:range rdf:resource="http://example.org/nelson/NoValueClass"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has the no-value class</rdfs:label>
+    </ObjectProperty>
+    
+
+
+    <!-- http://example.org/nelson/hasPositiveProperty -->
+
+    <ObjectProperty rdf:about="http://example.org/nelson/hasPositiveProperty">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://example.org/nelson/NegativeProperty"/>
+        <rdfs:range rdf:resource="http://example.org/nelson/PositiveProperty"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has positive property</rdfs:label>
+    </ObjectProperty>
+    
+
+
+    <!-- http://example.org/nelson/noValueClassForProperty -->
+
+    <ObjectProperty rdf:about="http://example.org/nelson/noValueClassForProperty">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://example.org/nelson/NoValueClass"/>
+        <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is the no-value class of</rdfs:label>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/nelson/CompleteProperty -->
+
+    <Class rdf:about="http://example.org/nelson/CompleteProperty">
+        <equivalentClass>
+            <Class>
+                <unionOf rdf:parseType="Collection">
+                    <Restriction>
+                        <onProperty rdf:resource="http://example.org/nelson/hasNegativeProperty"/>
+                        <someValuesFrom rdf:resource="http://example.org/nelson/CompleteProperty"/>
+                    </Restriction>
+                    <Restriction>
+                        <onProperty rdf:resource="http://example.org/nelson/hasPositiveProperty"/>
+                        <someValuesFrom rdf:resource="http://example.org/nelson/CompleteProperty"/>
+                    </Restriction>
+                </unionOf>
+            </Class>
+        </equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://example.org/nelson/SignedProperty"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The class of signed properties that are complete, i.e., for which failure to prove e.g. a positive property is sufficient warrant to infer the negative property.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Complete Property</rdfs:label>
+    </Class>
+    
+
+
+    <!-- http://example.org/nelson/ConsistentProperty -->
+
+    <Class rdf:about="http://example.org/nelson/ConsistentProperty">
+        <equivalentClass>
+            <Class>
+                <unionOf rdf:parseType="Collection">
+                    <Restriction>
+                        <onProperty rdf:resource="http://example.org/nelson/hasNegativeProperty"/>
+                        <someValuesFrom rdf:resource="http://example.org/nelson/ConsistentProperty"/>
+                    </Restriction>
+                    <Restriction>
+                        <onProperty rdf:resource="http://example.org/nelson/hasPositiveProperty"/>
+                        <someValuesFrom rdf:resource="http://example.org/nelson/ConsistentProperty"/>
+                    </Restriction>
+                </unionOf>
+            </Class>
+        </equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://example.org/nelson/SignedProperty"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The class of signed properties that are consistent, i.e., for which a subject may not bear both the positive and negative properties to the same object.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Consistent Property</rdfs:label>
+    </Class>
+    
+
+
+    <!-- http://example.org/nelson/NegativeProperty -->
+
+    <Class rdf:about="http://example.org/nelson/NegativeProperty">
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="http://example.org/nelson/hasPositiveProperty"/>
+                <someValuesFrom rdf:resource="http://example.org/nelson/PositiveProperty"/>
+            </Restriction>
+        </equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://example.org/nelson/SignedProperty"/>
+        <disjointWith rdf:resource="http://example.org/nelson/PositiveProperty"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The class of negative properties, i.e., binary relations indicating that a feature demonstrably fails to hold between two things.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Negative Property</rdfs:label>
+    </Class>
+    
+
+
+    <!-- http://example.org/nelson/NoValueClass -->
+
+    <Class rdf:about="http://example.org/nelson/NoValueClass">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The collection of classes encoding subjects which demonstrably fail to bear either a positive or negative property to anything.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">No-Value Class</rdfs:label>
+    </Class>
+    
+
+
+    <!-- http://example.org/nelson/PositiveProperty -->
+
+    <Class rdf:about="http://example.org/nelson/PositiveProperty">
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="http://example.org/nelson/hasNegativeProperty"/>
+                <someValuesFrom rdf:resource="http://example.org/nelson/NegativeProperty"/>
+            </Restriction>
+        </equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://example.org/nelson/SignedProperty"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The class of positive properties, i.e., binary relations indicating that a feature demonstrably holds between two things.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Positive Property</rdfs:label>
+    </Class>
+    
+
+
+    <!-- http://example.org/nelson/SignedProperty -->
+
+    <Class rdf:about="http://example.org/nelson/SignedProperty">
+        <equivalentClass>
+            <Class>
+                <unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/nelson/NegativeProperty"/>
+                    <rdf:Description rdf:about="http://example.org/nelson/PositiveProperty"/>
+                </unionOf>
+            </Class>
+        </equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The class of signed properties, i.e., binary relations whose semantics presuppose the existence of an opposed relation.</rdfs:comment>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Signed Property</rdfs:label>
+    </Class>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#Property -->
+
+    <Class rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#NodeShape -->
+
+    <Class rdf:about="http://www.w3.org/ns/shacl#NodeShape"/>
+    
+
+
+    <!-- http://www.w3.org/ns/shacl#SPARQLRule -->
+
+    <Class rdf:about="http://www.w3.org/ns/shacl#SPARQLRule"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/nelson/CompletePropertyShape -->
+
+    <NamedIndividual rdf:about="http://example.org/nelson/CompletePropertyShape">
+        <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
+        <shacl:rule>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/ns/shacl#SPARQLRule"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Infer negative property holds between $this and ?object for properties in nlsn:CompleteProperty when positive property is unprovable.</rdfs:label>
+                <shacl:construct>
+			CONSTRUCT {
+				$this ?negativeproperty ?object.
+			}
+			WHERE { $this rdf:type ?domain.
+				?object rdf:type ?range.
+				FILTER NOT EXISTS{
+					$this ?positiveproperty ?anything.
+					}.
+				?positiveproperty nlsn:hasNegativeProperty ?negativeproperty.
+				?positiveproperty rdfs:domain ?domain.
+				?positiveproperty rdfs:range ?range.
+			}
+			</shacl:construct>
+                <shacl:order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</shacl:order>
+                <shacl:prefixes rdf:resource="http://example.org/nelson/"/>
+            </rdf:Description>
+        </shacl:rule>
+        <shacl:rule>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/ns/shacl#SPARQLRule"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Infer positive property holds between $this and ?object for properties in nlsn:CompleteProperty when negative property is unprovable.</rdfs:label>
+                <shacl:construct>
+			CONSTRUCT {
+				$this ?positiveproperty ?object.
+			}
+			WHERE { $this rdf:type ?domain.
+				?object rdf:type ?range.
+				FILTER NOT EXISTS{
+					$this ?negativeproperty ?anything.
+					}.
+				?negativeproperty nlsn:hasPositiveProperty ?positiveproperty.
+				?negativeproperty rdfs:domain ?domain.
+				?negativeproperty rdfs:range ?range.
+			}
+			</shacl:construct>
+                <shacl:order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</shacl:order>
+                <shacl:prefixes rdf:resource="http://example.org/nelson/"/>
+            </rdf:Description>
+        </shacl:rule>
+        <shacl:targetClass rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://example.org/nelson/NegativePropertyAssertionShape -->
+
+    <NamedIndividual rdf:about="http://example.org/nelson/NegativePropertyAssertionShape">
+        <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
+        <shacl:rule>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/ns/shacl#SPARQLRule"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Infer negative property holds between $this and ?object in case owl:NegativePropertyAssertion exists.</rdfs:label>
+                <shacl:construct>
+			CONSTRUCT {
+				$this ?negativeproperty ?object.
+			}
+			WHERE {
+				[] rdf:type owl:NegativePropertyAssertion;
+					owl:sourceIndividual $this;
+				 	owl:assertionProperty ?positiveproperty;
+					owl:targetIndividual ?object.
+				?positiveproperty nlsn:hasNegativeProperty ?negativeproperty.
+			}
+			</shacl:construct>
+                <shacl:order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</shacl:order>
+                <shacl:prefixes rdf:resource="http://example.org/nelson/"/>
+            </rdf:Description>
+        </shacl:rule>
+        <shacl:rule>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/ns/shacl#SPARQLRule"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Infer negative property holds between $this and ?object in case $this is a member of appropriate nlsn:NoValueClass.</rdfs:label>
+                <shacl:construct>
+			CONSTRUCT {
+				$this ?negativeproperty ?object.
+			}
+			WHERE { ?novalue rdf:type nlsn:NoValueClass.
+				?positiveproperty nlsn:hasNoValueClass ?novalue.
+				$this rdf:type ?novalue.
+				?positiveproperty nlsn:hasNegativeProperty ?negativeproperty.
+				?positiveproperty rdfs:range ?range.
+				?object rdf:type ?range.
+			}
+			</shacl:construct>
+                <shacl:order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</shacl:order>
+                <shacl:prefixes rdf:resource="http://example.org/nelson/"/>
+            </rdf:Description>
+        </shacl:rule>
+        <shacl:targetClass rdf:resource="http://www.w3.org/2002/07/owl#Axiom"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://example.org/nelson/PositivePropertyAssertionShape -->
+
+    <NamedIndividual rdf:about="http://example.org/nelson/PositivePropertyAssertionShape">
+        <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
+        <shacl:rule>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/ns/shacl#SPARQLRule"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Infer positive property holds between $this and ?object in case owl:NegativePropertyAssertion exists.</rdfs:label>
+                <shacl:construct>
+			CONSTRUCT {
+				$this ?positiveproperty ?object.
+			}
+			WHERE {
+				[] rdf:type owl:NegativePropertyAssertion;
+					owl:sourceIndividual $this;
+				 	owl:assertionProperty ?negativeproperty;
+					owl:targetIndividual ?object.
+				?negativeproperty nlsn:hasPositiveProperty ?positiveproperty.
+			}
+			</shacl:construct>
+                <shacl:order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</shacl:order>
+                <shacl:prefixes rdf:resource="http://example.org/nelson/"/>
+            </rdf:Description>
+        </shacl:rule>
+        <shacl:rule>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/ns/shacl#SPARQLRule"/>
+                <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Infer positive property holds between $this and ?object in case $this is a member of appropriate nlsn:NoValueClass.</rdfs:label>
+                <shacl:construct>
+			CONSTRUCT {
+				$this ?positiveproperty ?object.
+			}
+			WHERE { ?novalue rdf:type nlsn:NoValueClass.
+				?negativeproperty nlsn:hasNoValueClass ?novalue.
+				$this rdf:type ?novalue.
+				?negativeproperty nlsn:hasPositiveProperty ?positiveproperty.
+				?negativeproperty rdfs:range ?range.
+				?object rdf:type ?range.
+			}
+			</shacl:construct>
+                <shacl:order rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</shacl:order>
+                <shacl:prefixes rdf:resource="http://example.org/nelson/"/>
+            </rdf:Description>
+        </shacl:rule>
+        <shacl:targetClass rdf:resource="http://www.w3.org/2002/07/owl#Axiom"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://example.org/nelson/notType -->
+
+    <NamedIndividual rdf:about="http://example.org/nelson/notType">
+        <rdf:type rdf:resource="http://example.org/nelson/NegativeProperty"/>
+        <nelson:hasPositiveProperty rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#type -->
+
+    <NamedIndividual rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
+        <rdf:type rdf:resource="http://example.org/nelson/PositiveProperty"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#differentFrom -->
+
+    <NamedIndividual rdf:about="http://www.w3.org/2002/07/owl#differentFrom"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#sameAs -->
+
+    <NamedIndividual rdf:about="http://www.w3.org/2002/07/owl#sameAs">
+        <rdf:type rdf:resource="http://example.org/nelson/PositiveProperty"/>
+        <nelson:hasNegativeProperty rdf:resource="http://www.w3.org/2002/07/owl#differentFrom"/>
+    </NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
